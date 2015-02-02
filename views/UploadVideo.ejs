@@ -1,0 +1,37 @@
+/**
+ * New node file
+ */
+<html>
+<head>
+<h4>Video Upload<h4>
+<script src="http://code.jquery.com/jquery-1.7.2.min.js" ></script>
+<script src='/socket.io/socket.io.js' ></script>
+
+<script type="text/javascript" >
+	$(document).ready(function(){
+	
+	
+	
+	var vdofile=$(#videofile).val();
+	var socket=io.connect("http://localhost:8080");
+	$(document).on('uploading','#videofile',function(event){
+						var file=event.target.files[0];
+						var reader=new FileReader();
+						reader.onload=function(event){
+						
+							socket.emit('upload',{'file':file.name,'data':event.target.outcome});
+						}
+					//reader=readStringAsUrl(file);
+	});
+	});
+</script>
+</head>
+<body>
+	<form enctype="multipart/form-data">
+	Select video file:  <input type=file name='videofile' id='videofile'></br></br>
+	<input type=button value='Upload File'></br></br>
+	
+	</form>
+</body>
+
+</html>

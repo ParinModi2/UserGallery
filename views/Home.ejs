@@ -1,0 +1,49 @@
+<html>
+<head><h5>  Home Page <h5> 
+<script type="text/javascript">
+    if (window.location.hash && window.location.hash == '#_=_') {
+        if (window.history && history.pushState) {
+            window.history.pushState("", document.title, window.location.pathname);
+        } else {
+            // Prevent scrolling by storing the page's current scroll offset
+            var scroll = {
+                top: document.body.scrollTop,
+                left: document.body.scrollLeft
+            };
+            window.location.hash = '';
+            // Restore the scroll offset, should be flicker free
+            document.body.scrollTop = scroll.top;
+            document.body.scrollLeft = scroll.left;
+        }
+    }
+      $(document).ready(
+   //   alert("in jscrit")
+    function(){
+        $('input:file').change(
+            function(){
+                if ($(this).val()) {
+                    $('input:submit').attr('disabled',false);
+                    // or, as has been pointed out elsewhere:
+                    // $('input:submit').removeAttr('disabled'); 
+                } 
+            }
+            );
+    });
+</script>
+</head>
+<body>
+
+<form method=post enctype="multipart/form-data">
+	<p>Welcome <%=session_var%></p>
+	<p id=status> Please select file</p></br></br>
+	<input type=file id='files' name='files'>
+	<input type='submit' id='button' value='Upload'></br></br>
+	
+</form>
+<form method=get action='/UserLogin'>
+<input type=submit value='Logout'>
+
+</form>
+
+</body>
+</html>
