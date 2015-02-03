@@ -1,7 +1,7 @@
 module.exports={
 /*
-* This file contains the configurations information of Twitter login app.
-* It consists of Twitter app information, database information.
+* This file contains the configurations information of Facebook login app.
+* 
 */
 
 	"facebook_api_key" : "XXXX",
