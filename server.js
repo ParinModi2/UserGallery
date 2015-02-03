@@ -113,7 +113,7 @@ var app = express();
 		
 		onFileUploadComplete:function(file){
 			console.log(file.fieldname+' uploaded to '+file.path);
-			done=true;
+		//	done=true;
 		}
 
 }));
