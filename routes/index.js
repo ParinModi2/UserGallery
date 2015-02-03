@@ -26,6 +26,7 @@ exports.index= function(req,res){
 
 //GET METHOD FOR LOGIN PAGE BY MAINTAINING SESSION (USING FACEBOOK LOGIN)
 exports.getlogin=function(req, res){
+	req.logout();
 	if(session_var.email){
 	//	console.log("session_var"+JSON.stringify(session_var));
 		req.session.destroy(function(err){
@@ -34,16 +35,15 @@ exports.getlogin=function(req, res){
 	
 			else{
 				req.logout();
-				res.render('UserLogin');
+				
 			}
 		//	console.log("after logout session"+JSON.stringify(session_var));
 		});
-	}
-	else{
-	//	console.log("session_var"+JSON.stringify(session_var));
-		res.render('UserLogin');
-	}
+	}res.redirect('/');
+	
+	
 };
+
 
 //GET METHOD TO DISPLAY HOME PAGE
 exports.getHomepage=function(req,res){
