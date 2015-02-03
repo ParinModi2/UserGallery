@@ -59,6 +59,7 @@ exports.getHomepage=function(req,res){
 //TO GET THE ANALYSIS OF USER ACCESS OF S3 BUCKET(HOW MANY IMAGES UPLOADED PER USER)
 exports.getAnalysis=function(req,res){
 	var email=[];
+	var count=0;
 	mongoClient.connect('mongodb://localhost:27017/usercredentials',function(err,db){
 	  		
 		var cursor=db.collection('user').find({});
@@ -67,9 +68,11 @@ exports.getAnalysis=function(req,res){
 				if (doc===null){
 					db.close();
 					emitEvent.emit('trversal',email);
+					console.log("Total number of users:"+count);
 				}
 				else{
 						email.push(doc.email);
+						count=count+1;
 					}
 		});
 		
@@ -93,9 +96,9 @@ exports.getAnalysis=function(req,res){
 					});
 				});
 			});
-			console.log("Total number of users:"+count);
+			
 		});
-
+		//res.write()
 			
 	};
 
@@ -104,9 +107,9 @@ exports.getAnalysis=function(req,res){
 //	ONLY 15 HITS PER MINUTE IS ALLOWED.
 exports.handleImageUpload=function(req,res){		
 
-		var sess=req.session;
-		var user_access=0;
-		var s3bucket = new aws.S3({params: {Bucket: 'project.bucket'}});
+		//var sess=req.session;
+		//var user_access=0;
+		//var s3bucket = new aws.S3({params: {Bucket: 'bucket.project'}});
 		//console.log(JSON.stringify(req.body));
 
 			var imgUrl='images/'+req.files.files.name;
@@ -182,7 +185,7 @@ exports.handleImageUpload=function(req,res){
 imageUploadEvent.on('upload',function(imgUrl,req){
 	var sess=req.session;
 	var user_access=0;
-	var s3bucket = new aws.S3({params: {Bucket: 'project.bucket'}});
+	var s3bucket = new aws.S3({params: {Bucket: 'bucket.project'}});
 	//console.log(JSON.stringify(req.body));
 
 	fs.readFile(imgUrl, function(err, data){
